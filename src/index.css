@@ -1,113 +1,359 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-.gallery-wrapper {
-  height: 100vh;
-  background-color: black;
+:root {
+  --primary-color: #4A90E2;
+  --secondary-color: #8BB9C5;
+  --accent-color: #4CAF50;
+  --danger-color: #E74C3C;
+  --background-light: #F5F5F5;
+  --background-dark: #112233;
+  --text-light: #FFFFFF;
+  --text-dark: #333333;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
 }
 
-.single-card {
+/* Base Styles */
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--background-light);
+  position: relative;
+}
+
+/* Navigation Bar */
+.NavBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: var(--background-dark);
+  color: var(--text-light);
+}
+
+.LogoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.NavTitle {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.NavActions {
   display: flex;
   align-items: center;
+  gap: 16px;
+}
+
+.UserBadge {
+  font-size: 16px;
+}
+
+/* Hamburger Menu */
+.HamburgerMenu {
+  cursor: pointer;
+  padding: 8px;
+}
+
+.HamburgerIcon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+}
+
+.HamburgerLine {
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.HamburgerIcon.Open .HamburgerLine:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.HamburgerIcon.Open .HamburgerLine:nth-child(2) {
+  opacity: 0;
+}
+
+.HamburgerIcon.Open .HamburgerLine:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.MobileMenu {
+  background-color: white;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  box-shadow: var(--shadow);
+  position: absolute;
+  top: 60px;
+  right: 16px;
+  z-index: 100;
+  width: 200px;
+}
+
+.MenuItem {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.MenuItem.Active {
+  background-color: var(--background-light);
+}
+
+.MenuItemText {
+  font-size: 16px;
+}
+
+.LogoutItem {
+  color: var(--danger-color);
+}
+
+/* Main Content */
+.Content {
+  flex: 1;
+  padding: 16px;
+}
+
+/* Todo Input Section */
+.TodoInputSection {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  padding: 16px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  margin: 16px;
+  box-shadow: var(--shadow);
+}
+
+.TodoInput {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  color: var(--text-dark);
+}
+
+.AddButton {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 12px 16px;
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Todo List */
+.TodoList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 16px;
+}
+
+.TodoItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.TodoLeftSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.TodoText {
+  font-size: 16px;
+  transition: color 0.2s, text-decoration 0.2s;
+}
+
+.DeleteButton {
+  color: var(--danger-color);
+  font-size: 24px;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+/* Edit Todo */
+.EditWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.EditInput {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+}
+
+/* Authentication Styles */
+.AuthContainer {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.AuthCard {
+  background-color: white;
+  padding: 24px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  width: 300px;
+}
+
+.AuthHeader {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.LogoImage {
+  display: block;
+  margin: 0 auto;
+}
+
+.AuthTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.ErrorMessage {
+  background-color: #ffdddd;
+  padding: 8px;
+  border-radius: var(--border-radius);
+  margin-bottom: 16px;
+}
+
+.ErrorText {
+  color: var(--danger-color);
+  text-align: center;
+}
+
+.AuthForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.FormGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.FormLabel {
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.AuthInput {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+}
+
+.AuthButtonContainer {
+  display: flex;
   justify-content: center;
 }
 
-.scrollbar {
-  position: absolute;
-  right: 7px;
-  z-index: 1000;
-  width: 4px;
-  background: linear-gradient(to bottom, #ff6448, #ccddff, #3deae7);
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow:
-    0px 0px 4px 1px rgba(12, 205, 223, 0.4),
-    0px 0px 16px 5px rgba(12, 205, 223, 0.5);
+.AuthButton {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 12px 16px;
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
 }
 
-.scrollbar-effect {
-  width: 100%;
-  height: 80%;
+.AuthToggle {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  font-size: 14px;
 }
 
-.glow {
-  background-color: #333;
-  border-radius: 4px;
-  background: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0) 20%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0) 80%
-  );
-  animation: flow 3s linear infinite;
+.AuthToggleText {
+  color: var(--text-dark);
 }
 
-@keyframes flow {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(100%);
-  }
+.AuthToggleLink {
+  color: var(--accent-color);
+  cursor: pointer;
 }
 
-.list {
-  width: 100vw;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  height: calc(100% - 48px);
-  list-main-axis-gap: 10px;
-  list-cross-axis-gap: 10px;
+/* About Section */
+.AboutSection {
+  padding: 16px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin: 16px;
 }
 
-.picture-wrapper {
-  border-radius: 10px;
-  overflow: hidden;
-  width: 100%;
+.AboutTitle {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
-.like-icon {
-  position: absolute;
-  display: grid;
-  justify-items: center;
+.AboutText {
+  font-size: 16px;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+}
+
+.FeatureCard {
+  padding: 16px;
+  background-color: var(--background-light);
+  border-radius: var(--border-radius);
+}
+
+.FeatureTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.FeatureList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.FeatureItem {
+  display: flex;
   align-items: center;
-  top: 0px;
-  right: 0px;
-  width: 48px;
-  height: 48px;
+  gap: 8px;
 }
 
-.heart-love {
-  width: 16px;
-  height: 16px;
-}
-
-.circle {
-  position: absolute;
-  top: calc(50% - 8px);
-  left: calc(50% - 8px);
-  height: 16px;
-  width: 16px;
-  border: 2px solid red;
+.FeatureBullet {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-color);
   border-radius: 50%;
-  transform: scale(0);
-  opacity: 1;
-  animation: ripple 1s 1 ease-out;
 }
 
-.circleAfter {
-  animation-delay: 0.5s;
-}
-
-@keyframes ripple {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(2);
-    opacity: 0;
-  }
+.FeatureText {
+  font-size: 16px;
+  color: var(--text-dark);
 }

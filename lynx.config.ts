@@ -13,7 +13,7 @@ export default defineConfig({
       schema(url) {
         // We use `?fullscreen=true` to open the page in LynxExplorer in full screen mode
 	//return `${url}?fullscreen=true`
-        return `http://192.168.1.106:3000/main.lynx.bundle?fullscreen=true`
+        return `http://192.168.0.4:3000/main.lynx.bundle?fullscreen=true`
       },
     }),
   ],
