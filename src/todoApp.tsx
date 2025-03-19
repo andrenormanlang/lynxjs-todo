@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "@lynx-js/react";
-import "./index.css";
 
 // --- Types for Authentication ---
 type User = {
@@ -223,153 +222,141 @@ export function TodoApp() {
   }, [menuOpen]);
 
   return (
-    <view className="App">
+    <view className="flex flex-col min-h-screen bg-[#F5F5F5] relative">
       {/* Navigation Bar */}
-      <view className="NavBar">
-        <view className="LogoContainer">
+      <view className="flex justify-between items-center px-4 py-3 bg-[#112233] text-white">
+        <view className="flex items-center">
           <image
             src="assets/lynx-logo.png"
-            className="LogoImage"
-            style={{
-              width: "32px",
-              height: "32px",
-              marginRight: "10px",
-              background: "#112233",
-              borderRadius: "50px",
-            }}
+            className="w-8 h-8 mr-[10px] bg-[#112233] rounded-full"
           />
-          <text className="NavTitle">Lynx Todos</text>
+          <text className="text-xl font-semibold">Lynx Todos</text>
         </view>
-        <view className="NavActions">
-          <text className="UserBadge">{authState.currentUser}</text>
-          <view className="HamburgerMenu" bindtap={toggleMenu}>
-            <view className={`HamburgerIcon ${menuOpen ? "Open" : ""}`}>
-              <view className="HamburgerLine"></view>
-              <view className="HamburgerLine"></view>
-              <view className="HamburgerLine"></view>
+        <view className="flex items-center gap-4">
+          <text className="text-base">{authState.currentUser}</text>
+          <view className="cursor-pointer p-2" bindtap={toggleMenu}>
+            <view className="flex flex-col justify-between w-6 h-[18px]">
+              <view
+                className={`w-full h-0.5 bg-white transition-transform ${
+                  menuOpen ? "transform translate-y-2 rotate-45" : ""
+                }`}
+              ></view>
+              <view
+                className={`w-full h-0.5 bg-white transition-opacity ${
+                  menuOpen ? "opacity-0" : "opacity-100"
+                }`}
+              ></view>
+              <view
+                className={`w-full h-0.5 bg-white transition-transform ${
+                  menuOpen ? "transform -translate-y-2 -rotate-45" : ""
+                }`}
+              ></view>
             </view>
           </view>
         </view>
       </view>
-
+  
       {/* Mobile Menu Dropdown */}
       {menuOpen && (
-        <view className="MobileMenu">
+        <view className="bg-white rounded-b-lg shadow absolute top-16 right-4 z-50 w-52">
           <view
-            className={`MenuItem ${currentView === "home" ? "Active" : ""}`}
+            className={`px-4 py-3 border-b border-gray-200 ${
+              currentView === "home" ? "bg-[#F5F5F5]" : ""
+            }`}
             bindtap={() => navigateTo("home")}
           >
-            <text className="MenuItemText">Tasks</text>
+            <text className="text-base">Tasks</text>
           </view>
           <view
-            className={`MenuItem ${currentView === "about" ? "Active" : ""}`}
+            className={`px-4 py-3 border-b border-gray-200 ${
+              currentView === "about" ? "bg-[#F5F5F5]" : ""
+            }`}
             bindtap={() => navigateTo("about")}
           >
-            <text className="MenuItemText">About</text>
+            <text className="text-base">About</text>
           </view>
-          <view className="MenuItem LogoutItem" bindtap={handleLogout}>
-            <text className="MenuItemText">Logout</text>
+          <view
+            className="px-4 py-3 border-b border-gray-200 text-[#E74C3C]"
+            bindtap={handleLogout}
+          >
+            <text className="text-base">Logout</text>
           </view>
         </view>
       )}
-
+  
       {/* Main Content */}
       {currentView === "home" && (
-        <view className="Content">
+        <view className="flex-1 p-4">
           {/* Todo Input Section */}
-          <view className="TodoInputSection">
+          <view className="flex gap-3 p-4 bg-white rounded-lg m-4 shadow">
             <input
-              className="TodoInput"
+              className="flex-1 p-3 border border-gray-300 rounded-lg text-base text-[#333333] bg-white"
               value={newTodo}
               // @ts-ignore
               bindinput={(e) => setNewTodo(e.detail.value)}
               placeholder="Enter new todo"
-              style={{
-                color: "#000000",
-                backgroundColor: "#ffffff",
-                padding: "12px",
-                borderRadius: "4px",
-              }}
             />
-            <text className="AddButton" bindtap={handleAddTodo}>
+            <text
+              className="px-4 py-3 bg-[#4c8caf] text-white rounded-lg font-bold cursor-pointer"
+              bindtap={handleAddTodo}
+            >
               Add Todo
             </text>
           </view>
-
+  
           {/* Todo List */}
-          <view className="TodoList">
+          <view className="flex flex-col gap-3 mx-4">
             {todos.map((todo, index) => (
-              <view key={index} className="TodoItem">
+              <view
+                key={index}
+                className="flex justify-between items-center p-4 bg-white rounded-lg shadow"
+              >
                 {editIndex === index ? (
-                  <view className="EditWrapper">
+                  <view className="flex items-center gap-2">
                     <input
-                      className="EditInput"
+                      className="p-2 border border-gray-300 rounded-lg text-base"
                       value={editValue}
                       // @ts-ignore
                       bindinput={(e) => setEditValue(e.detail.value)}
-                      style={{
-                        color: "#000000",
-                        backgroundColor: "#ffffff",
-                        padding: "8px",
-                        width: "250px",
-                      }}
+                      style={{ width: "250px" }}
                       autofocus={true}
                     />
                     <text
-                      className="SaveButton"
+                      className="px-4 py-2 bg-[#4CAF50] text-white rounded cursor-pointer"
                       bindtap={handleEditSave}
-                      style={{
-                        padding: "8px 16px",
-                        backgroundColor: "#4CAF50",
-                        color: "white",
-                        borderRadius: "4px",
-                      }}
                     >
                       ✓
                     </text>
                   </view>
                 ) : (
                   <>
-                    <view className="TodoLeftSection">
+                    <view className="flex items-center gap-3">
                       <view
-                        className="CheckCircle"
+                        className="cursor-pointer flex justify-center items-center w-5 h-5 border border-gray-400 rounded-full"
                         bindtap={() => toggleComplete(index)}
                         style={{
-                          border: "1px solid rgb(139, 185, 197)",
-                          borderRadius: "50%",
-                          width: "20px",
-                          height: "20px",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
                           backgroundColor: completedTodos.includes(index)
                             ? "#4CAF50"
                             : "transparent",
                         }}
                       >
                         {completedTodos.includes(index) && (
-                          <text style={{ color: "white", fontSize: "14px" }}>
-                            ✓
-                          </text>
+                          <text className="text-white text-[14px]">✓</text>
                         )}
                       </view>
                       <text
-                        className="TodoText"
+                        className={`text-base ${
+                          completedTodos.includes(index)
+                            ? "line-through text-gray-500"
+                            : "text-[#000]"
+                        }`}
                         bindtap={() => handleEditStart(index)}
-                        style={{
-                          textDecoration: completedTodos.includes(index)
-                            ? "line-through"
-                            : "none",
-                          color: completedTodos.includes(index)
-                            ? "#888"
-                            : "#000",
-                        }}
                       >
                         {todo}
                       </text>
                     </view>
                     <text
-                      className="DeleteButton"
+                      className="text-[#E74C3C] text-2xl font-light cursor-pointer"
                       bindtap={() => handleDeleteTodo(index)}
                     >
                       ×
@@ -381,46 +368,48 @@ export function TodoApp() {
           </view>
         </view>
       )}
-
+  
       {currentView === "about" && (
-        <view className="Content">
-          <view className="AboutSection">
-            <text className="AboutTitle">About Lynx Todos</text>
-            <text className="AboutText">
-              This is a beautifully designed Todo application built with the
-              Lynx framework. It demonstrates basic CRUD operations, local
-              storage persistence, and responsive navigation.
+        <view className="flex-1 p-4">
+          <view className="p-4 bg-white rounded-lg shadow m-4">
+            <text className="text-2xl font-semibold mb-2">About Lynx Todos</text>
+            <text className="text-base text-[#333333] mb-4">
+              This is a beautifully designed Todo application built with the Lynx
+              framework. It demonstrates basic CRUD operations, local storage
+              persistence, and responsive navigation.
             </text>
-            <view className="FeatureCard">
-              <text className="FeatureTitle">Features</text>
-              <view className="FeatureList">
-                <view className="FeatureItem">
-                  <view className="FeatureBullet"></view>
-                  <text className="FeatureText">
+            <view className="p-4 bg-[#F5F5F5] rounded-lg">
+              <text className="text-lg font-semibold mb-2">Features</text>
+              <view className="flex flex-col gap-2">
+                <view className="flex items-center gap-2">
+                  <view className="w-2 h-2 bg-[#4CAF50] rounded-full"></view>
+                  <text className="text-base text-[#333333]">
                     Create, read, update, and delete todos
                   </text>
                 </view>
-                <view className="FeatureItem">
-                  <view className="FeatureBullet"></view>
-                  <text className="FeatureText">
+                <view className="flex items-center gap-2">
+                  <view className="w-2 h-2 bg-[#4CAF50] rounded-full"></view>
+                  <text className="text-base text-[#333333]">
                     Edit todos by tapping on them
                   </text>
                 </view>
-                <view className="FeatureItem">
-                  <view className="FeatureBullet"></view>
-                  <text className="FeatureText">
+                <view className="flex items-center gap-2">
+                  <view className="w-2 h-2 bg-[#4CAF50] rounded-full"></view>
+                  <text className="text-base text-[#333333]">
                     Persistent storage using localStorage
                   </text>
                 </view>
-                <view className="FeatureItem">
-                  <view className="FeatureBullet"></view>
-                  <text className="FeatureText">
+                <view className="flex items-center gap-2">
+                  <view className="w-2 h-2 bg-[#4CAF50] rounded-full"></view>
+                  <text className="text-base text-[#333333]">
                     Responsive mobile-first design
                   </text>
                 </view>
-                <view className="FeatureItem">
-                  <view className="FeatureBullet"></view>
-                  <text className="FeatureText">User authentication</text>
+                <view className="flex items-center gap-2">
+                  <view className="w-2 h-2 bg-[#4CAF50] rounded-full"></view>
+                  <text className="text-base text-[#333333]">
+                    User authentication
+                  </text>
                 </view>
               </view>
             </view>
@@ -428,5 +417,5 @@ export function TodoApp() {
         </view>
       )}
     </view>
-  );
+  );  
 }
