@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "@lynx-js/react";
+import lynxLogo from "./assets/lynx-logo.png";
 
 // --- Types for Authentication ---
 type User = {
@@ -222,15 +223,15 @@ export function TodoApp() {
   }, [menuOpen]);
 
   return (
-    <view className="flex flex-col min-h-screen bg-[#F5F5F5] relative">
+    <view className="flex flex-col min-h-screen bg-[#fafafa] relative">
       {/* Navigation Bar */}
-      <view className="flex justify-between items-center px-4 py-3 bg-[#112233] text-white">
-        <view className="flex items-center">
+      <view className="flex justify-between items-center px-4 py-3 bg-[#000000]">
+        <view className="flex items-center ">
           <image
-            src="assets/lynx-logo.png"
-            className="w-8 h-8 mr-[10px] bg-[#112233] rounded-full"
+            src={lynxLogo}
+            className="w-10 h-10 mr-[10px] bg-[#000000] rounded-full p-1"
           />
-          <text className="text-xl font-semibold">Lynx Todos</text>
+          <text className="text-2xl font-semibold  text-white">Lynx Todos</text>
         </view>
         <view className="flex items-center gap-4">
           <text className="text-base">{authState.currentUser}</text>
